@@ -1,0 +1,82 @@
+version: '3.7'
+
+services:
+  configserver:
+    image: configserver:0.0.1-SNAPSHOT
+    networks:
+      backend:
+        aliases:
+          - "configserver"
+
+    ports:
+      - "8071:8071"
+  eurekaserver:
+    image: eurekaserver:0.0.1-SNAPSHOT
+    depends_on: [configserver]
+    ports:
+      - "8070:8070"
+    networks:
+      backend:
+        aliases:
+          - "eurekaserver"
+  gatewayserver:
+    depends_on: [configserver, eurekaserver]
+    image: gatewayserver:0.0.1-SNAPSHOT
+    ports:
+      - "8092:8092"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8072"
+      CONFIGSERVER_URI: "http://configserver:8071"
+      EUREKASERVER_URI: "http://eurekaserver:8070/eureka/"
+      EUREKASERVER_PORT: "8070"
+      CONFIGSERVER_PORT: "8071"
+    networks:
+      backend:
+        aliases:
+          - "gateway"
+  userservice:
+    depends_on: [configserver]
+    image: userservice:0.0.1-SNAPSHOT
+    ports:
+      - "8091:8091"
+    environment:
+      PROFILE: "dev"
+      CONFIGSERVER_URI: "http://configserver:8071"
+      CONFIGSERVER_PORT: "8071"
+    networks:
+      - backend
+
+  postservice:
+    depends_on: [configserver]
+    image: postservice:0.0.1-SNAPSHOT
+
+    ports:
+      - "8180:8180"
+    environment:
+      PROFILE: "dev"
+      CONFIGSERVER_URI: "http://configserver:8071"
+      CONFIGSERVER_PORT: "8071"
+
+    networks:
+      - backend
+  keycloak:
+    image: jboss/keycloak
+
+    environment:
+      KEYCLOAK_ADMIN: "admin"
+      KEYCLOAK_ADMIN_PASSWORD: "admin"
+
+    ports:
+      - "8080:8080"
+    networks:
+      backend:
+        aliases:
+          - "keycloak"
+
+
+networks:
+  backend:
+    driver: bridge
+
+

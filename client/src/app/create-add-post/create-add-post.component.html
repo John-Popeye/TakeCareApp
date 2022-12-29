@@ -1,0 +1,104 @@
+<ng-container *ngIf="isEdition"><h2>Edit Post</h2></ng-container>
+<ng-container *ngIf="!isEdition"><h2>Create Post</h2></ng-container>
+
+<form class="example-form" [formGroup]="formGroup">
+  <mat-card>
+    <mat-card-header class="d-block">
+      <mat-card-title class="example-full-width">
+        <mat-form-field class="example-full-width">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" placeholder="Enter Post Title Here" value="">
+        </mat-form-field>
+
+      </mat-card-title>
+      <mat-card-subtitle>
+        <mat-form-field class="half-width">
+          <mat-label>Animal(s) race and names</mat-label>
+          <input matInput formControlName="animalsDescription" placeholder="Enter Post Title Here" value="">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Job Description</mat-label>
+          <textarea matInput formControlName="description" rows="9" placeholder=""></textarea>
+        </mat-form-field>
+        <div class="row gx-0">
+          <div class="col-md-3">
+            <mat-form-field appearance="fill" class="full-width">
+              <mat-label>Select first day (including)</mat-label>
+              <input formControlName="startDate" [matDatepicker]="startpicker" matInput>
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle [for]="startpicker" matIconSuffix></mat-datepicker-toggle>
+              <mat-datepicker #startpicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3 offset-md-1">
+            <mat-form-field appearance="fill" class="full-width">
+              <mat-label>Select last day (including)</mat-label>
+              <input formControlName="endDate" [matDatepicker]="endpicker" matInput>
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle [for]="endpicker" matIconSuffix></mat-datepicker-toggle>
+              <mat-datepicker #endpicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <ng-container formGroupName="address">
+        <div class="row gx-0">
+          <div class="col-md-3">
+            <mat-form-field  class="full-width">
+              <mat-label>City</mat-label>
+              <input matInput formControlName="city" placeholder="Enter Post Title Here" value="">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-3  offset-md-1">
+            <mat-form-field  class="full-width">
+              <mat-label>Zip Code</mat-label>
+              <input matInput formControlName="zipCode" placeholder="Enter Post Title Here" value="">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row gx-0">
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <mat-label>Street</mat-label>
+              <input matInput formControlName="street" placeholder="Enter Post Title Here" value="">
+            </mat-form-field>
+          </div>
+          <div class="col-md-3  offset-md-1">
+            <mat-form-field class="full-width">
+              <mat-label>Home Number</mat-label>
+              <input matInput formControlName="homeNumber" placeholder="Enter Post Title Here" value="">
+            </mat-form-field>
+          </div>
+          <div class="col-md-3  offset-md-1">
+            <mat-form-field class="full-width">
+              <mat-label>Flat Number</mat-label>
+              <input matInput formControlName="flatNumber" placeholder="Enter Post Title Here" value="">
+            </mat-form-field>
+          </div>
+        </div>
+        </ng-container>
+        <h4>Upload photos</h4>
+        <div class="row gx-0">
+            <div class="col-md-12">
+              <h1>Upload Image</h1>
+            </div>
+
+
+            <div class="col-md-6">
+              <input type="file" (change)="onFileChanged($event)">
+            </div>
+          <div class="col-md-6"><img class="upload-image" [src]="url" *ngIf="url"></div>
+
+
+
+
+        </div>
+
+
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions align="end">
+      <button mat-raised-button (click)="createPost()" color="accent">POST</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

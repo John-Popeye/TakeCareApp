@@ -1,0 +1,10 @@
+.maxheight{
+  height: calc(100vh - 64px);
+  position: static;
+  left: 0;
+  top: 64px;
+}
+
+.filter-button{
+  width: 60%;
+}

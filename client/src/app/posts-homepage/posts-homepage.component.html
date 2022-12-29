@@ -1,0 +1,64 @@
+<ng-container *ngIf="enabledFilters.startDate || enabledFilters.endDate || enabledFilters.city || enabledFilters.zipCode">
+  <h4>Enabled Filters:</h4>
+<mat-chip-listbox aria-label="Enabled Filters" >
+  <mat-chip *ngIf="enabledFilters.startDate">
+    From: {{enabledFilters.startDate | date:"d/M/yyyy"}}
+  </mat-chip>
+  <mat-chip  *ngIf="enabledFilters.endDate">
+    To: {{enabledFilters.endDate | date:"d/M/yyyy"}}
+  </mat-chip>
+  <mat-chip  *ngIf="enabledFilters.city">
+    City: {{enabledFilters.city}}
+  </mat-chip>
+    <mat-chip  *ngIf="enabledFilters.zipCode">
+      Zip Code: {{enabledFilters.zipCode}}
+    </mat-chip>
+
+
+    <button  (click)="removeFilters()" color="primary" class="filter-cancel" mat-mini-fab>
+      <mat-icon>cancel</mat-icon>
+    </button>
+</mat-chip-listbox>
+</ng-container>
+<div class="pt-5" *ngFor="let post of posts">
+  <ng-container>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{post.title}}</mat-card-title>
+        <mat-card-subtitle>{{post.animalDescription}}</mat-card-subtitle>
+      </mat-card-header>
+      <div class="row gx-0">
+        <div class="col-md-3 px-3" *ngIf="post.base64image; else default_image">
+          <img class="ad-image"mat-card-image [src]="post.base64image">
+
+        </div>
+        <ng-template #default_image>
+        <div class="col-md-3 px-3">
+            <img class="ad-image"mat-card-image src="assets/logo.jpg">
+        </div>
+        </ng-template>
+        <div class="col-md-6 post-description">
+          <p>
+          {{post.description}}
+          </p>
+        </div>
+        <div class="col-md-3 text-center center-button">
+          <button (click)="callService(post.id)"mat-raised-button color="accent">Show More</button>
+        </div>
+      </div>
+      <mat-card-actions align="end">
+        <mat-chip class="mx-2">
+          Address: {{post.address.zipCode}} {{post.address.city}} {{post.address.street}}
+        </mat-chip>
+        <mat-chip class="mx-2 date-chip">
+          From: {{post.startDate | date:"d/M/yyyy"}}
+        </mat-chip>
+        <mat-chip class="mx-2">
+          To: {{post.endDate | date:"d/M/yyyy"}}
+        </mat-chip>
+        <span class="mx-2">Created: {{post.creationDate | date:"d/M/yyyy"}}</span>
+      </mat-card-actions>
+    </mat-card>
+    <br>
+  </ng-container>
+</div>

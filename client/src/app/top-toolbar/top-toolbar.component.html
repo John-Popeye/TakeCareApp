@@ -1,0 +1,18 @@
+<div class="static">
+  <mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span (click)="navigateToHomePage()" class="title-link">Take Care</span>
+    <span class="example-spacer"></span>
+    <button mat-raised-button (click)="navigateToCreatePost()" color="accent">Create Post</button>
+
+    <div *ngIf="isLoggedIn; else login_please" class="px-2"><span>Logged as: {{userName}}</span></div>
+    <ng-template #login_please>
+      <div class="px-2">Login Please -></div>
+    </ng-template>
+    <button mat-icon-button class="example-icon"  (click)="navigateToAccountSettings()" aria-label="Example icon-button with share icon">
+      <mat-icon>settings</mat-icon>
+    </button>
+  </mat-toolbar>
+</div>

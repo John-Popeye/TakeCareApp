@@ -1,0 +1,16 @@
+.full-width {
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+  min-width: 100%;
+}
+
+.half-width{
+  width:50%;
+}
+
+.upload-image{
+  max-height: 150px;
+}

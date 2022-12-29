@@ -1,0 +1,52 @@
+<div class="maxheight">
+<div class="pt-2 pb-5 ml-1 mr-1">
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>My Cares</mat-card-title>
+    </mat-card-header>
+    <mat-card-content *ngIf="isLoggedIn; else not_logged_cares">
+    <ng-container *ngFor="let ad of userCares; let i = index">
+      <div><a href="">{{ad.startDate | date:'MMM d'}} - {{ad.endDate | date:'MMM d'}} {{ad.address.city}}</a></div>
+    </ng-container>
+      <div class="float-end pt-3">
+      <button (click)="navigateToAllPostsCreatedOverview()" mat-raised-button color="primary" class="small-button">All Cares</button>
+      </div>
+    </mat-card-content>
+    <ng-template #not_logged_cares>
+      <mat-card-content>
+        <p class="disabled-text">Please Login to Enable this Future</p>
+        <div class="float-end pt-3">
+          <button mat-raised-button color="primary" disabled class="small-button">All Cares</button>
+        </div>
+      </mat-card-content>
+    </ng-template>
+  </mat-card>
+</div>
+  <div class="pb-5 ml-1 mr-1">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>My Orders</mat-card-title>
+      </mat-card-header>
+    <mat-card-content *ngIf="isLoggedIn; else not_logged_orders">
+      <ng-container *ngFor="let ad of userCreatedAds; let i = index">
+        <div><a href="">{{ad.startDate | date:'MMM d'}} - {{ad.endDate | date:'MMM d'}} {{ad.address.city}}</a></div>
+      </ng-container>
+      <div class="float-end pt-3">
+        <button mat-raised-button color="primary" class="small-button">All Orders</button>
+      </div>
+    </mat-card-content>
+    <ng-template #not_logged_orders>
+      <mat-card-content>
+        <p class="disabled-text">Please Login to Enable this Future</p>
+        <div class="float-end pt-3">
+          <button mat-raised-button color="primary" disabled class="small-button">All Orders</button>
+        </div>
+      </mat-card-content>
+    </ng-template>
+  </mat-card>
+  </div>
+    <div *ngIf="isMainPostPage()" class="pb-5 ml-1 mr-1 text-center">
+      <button (click)="openFilterPopup()"mat-raised-button color="primary" class="filter-button">Filter</button>
+    </div>
+</div>
