@@ -16,7 +16,7 @@
       <mat-card-subtitle>
         <mat-form-field class="half-width">
           <mat-label>Animal(s) race and names</mat-label>
-          <input matInput formControlName="animalDescription" placeholder="Enter Post Title Here" required>
+          <input matInput formControlName="animalDescription" placeholder="Enter Animals Race and\or names here" required>
           <mat-error *ngIf="formGroup?.get('animalDescription').invalid">{{getRequiredErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
@@ -57,7 +57,7 @@
           <div class="col-md-3">
             <mat-form-field  class="full-width">
               <mat-label>City</mat-label>
-              <input matInput formControlName="city" placeholder="Enter Post Title Here" required>
+              <input matInput formControlName="city" placeholder="Enter your city here" required>
               <mat-error *ngIf="formGroup?.get('address.city').invalid">{{getRequiredErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
@@ -65,7 +65,7 @@
           <div class="col-md-3  offset-md-1">
             <mat-form-field  class="full-width">
               <mat-label>Zip Code</mat-label>
-              <input matInput formControlName="zipCode" placeholder="Enter Post Title Here" required>
+              <input matInput formControlName="zipCode" placeholder="Enter your zip code here" required>
               <mat-error *ngIf="formGroup?.get('address.zipCode').invalid">{{getRequiredErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
@@ -74,21 +74,21 @@
           <div class="col-md-3">
             <mat-form-field class="full-width">
               <mat-label>Street</mat-label>
-              <input matInput formControlName="street" placeholder="Enter Post Title Here" required>
+              <input matInput formControlName="street" placeholder="Enter your street here" required>
               <mat-error *ngIf="formGroup?.get('address.street').invalid">{{getRequiredErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
           <div class="col-md-3  offset-md-1">
             <mat-form-field class="full-width">
               <mat-label>Home Number</mat-label>
-              <input matInput formControlName="homeNumber" placeholder="Enter Post Title Here" required>
+              <input matInput formControlName="homeNumber" placeholder="Enter your home nuber here" required>
               <mat-error *ngIf="formGroup?.get('address.homeNumber').invalid">{{getRequiredErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
           <div class="col-md-3  offset-md-1">
             <mat-form-field class="full-width">
               <mat-label>Flat Number</mat-label>
-              <input matInput formControlName="flatNumber" placeholder="Enter Post Title Here">
+              <input matInput formControlName="flatNumber" placeholder="Enter your flat number here">
             </mat-form-field>
           </div>
         </div>

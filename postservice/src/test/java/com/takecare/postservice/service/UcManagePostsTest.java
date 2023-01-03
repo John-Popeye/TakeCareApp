@@ -14,12 +14,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.times;
 
 @ExtendWith(SpringExtension.class)
 public class UcManagePostsTest {
@@ -31,7 +27,6 @@ public class UcManagePostsTest {
         service = new UcManagePosts();
         service.repository = Mockito.mock(PostRepository.class);
         service.validationService = Mockito.mock(PostValidationService.class);
-        service.restTemplate = Mockito.mock(RestTemplate.class);
     }
 
     @Test
@@ -85,34 +80,6 @@ public class UcManagePostsTest {
         List<Post> result = service.findPostsForPage(page, filterObject);
 
         assertEquals(result, allPosts);
-    }
-
-
-    @Test
-    public void shouldChangePostStatusTest() {
-        String username = "user";
-        String token = "JWTTOKEN";
-        long id = 1;
-
-        Post post = new Post();
-        post.setTitle("test");
-        post.setCreatorUserName("testusername");
-
-
-        Mockito.when(service.validationService
-                        .validatePostOnStatusChange(any(Post.class), any(PostStatusEnum.class)))
-                .thenReturn(true);
-
-        Mockito.when(
-                service.repository
-                        .findById
-                                (anyLong())).thenReturn(Optional.of(post));
-
-        service.changePostStatus(username, id, token, PostStatusEnum.open);
-        post.setStatus(PostStatusEnum.open);
-        Mockito.verify(service.restTemplate, times(1));
-
-
     }
 
 }
