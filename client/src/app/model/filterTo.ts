@@ -7,6 +7,5 @@ export class FilterTo {
   startDate: Date;
   endDate: Date;
   city: string;
-  zipCode: string;
 
 }

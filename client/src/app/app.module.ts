@@ -2,11 +2,10 @@ import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { PostComponent } from './post/post.component';
 import {initializeKeycloak} from "./common/keycloakInit/initializeKeycloak";
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
 import {RouterModule} from "@angular/router";
-import {AppRoutingModule} from "./app-routing.module";
+import {AppRoutingModule, routes} from "./app-routing.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ErrorCatchingInterceptor} from "./common/interceptors/error-catch.interceptor.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -15,7 +14,7 @@ import {MaterialComponentsModule} from "./common/material-components/material-co
 import { TopToolbarComponent } from './top-toolbar/top-toolbar.component';
 import { LeftMenuComponent } from './left-menu/left-menu.component';
 import {LoadingInterceptor} from "./common/interceptors/loading-interceptor.component";
-import {LoadingService} from "./common/services/loading.service";
+import {LoadingService} from "./common/services/loadingService/loading.service";
 import { PostsHomepageComponent } from './posts-homepage/posts-homepage.component';
 import { CreateAddPostComponent } from './create-add-post/create-add-post.component';
 import {MatNativeDateModule} from "@angular/material/core";
@@ -24,11 +23,11 @@ import { PostFilterPopupComponent } from './left-menu/post-filter-popup/post-fil
 import {ReactiveFormsModule} from "@angular/forms";
 import { AllPostsOverviewComponent } from './all-posts-overview/all-posts-overview.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostComponent,
     TopToolbarComponent,
     LeftMenuComponent,
     PostsHomepageComponent,
@@ -36,6 +35,7 @@ import { PostDetailsComponent } from './post-details/post-details.component';
     PostFilterPopupComponent,
     AllPostsOverviewComponent,
     PostDetailsComponent,
+    NotificationsComponent,
 
   ],
   imports: [
@@ -44,7 +44,7 @@ import { PostDetailsComponent } from './post-details/post-details.component';
     MaterialComponentsModule,
     BrowserModule,
     MatNativeDateModule,
-    RouterModule,
+    RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}),
     KeycloakAngularModule,
     AppRoutingModule,
     HttpClientModule,

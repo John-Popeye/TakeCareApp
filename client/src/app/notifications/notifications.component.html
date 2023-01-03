@@ -1,0 +1,53 @@
+<h1>Your notifications </h1>
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Filter by status</mat-label>
+    <mat-select [formControl]="filterFormControl">
+      <mat-option (click)="filterTableDataByStatus(null)">None</mat-option>
+      <mat-option *ngFor="let status of statuses" [value]="status" defa>
+        {{status}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<table mat-table [dataSource]="tableData" matSort class="mat-elevation-z8">
+
+  <ng-container matColumnDef="goToDetails">
+    <th mat-header-cell *matHeaderCellDef> Creation Date </th>
+    <td mat-cell *matCellDef="let element">
+      <button  (click)="navigateToAdDetails(element.postId)"color="primary" mat-raised-button color="primary" aria-label="Example icon-button with menu icon">
+      Details
+    </button></td>
+  </ng-container>
+
+  <ng-container matColumnDef="creationDate">
+    <th mat-header-cell *matHeaderCellDef> Creation Date </th>
+    <td mat-cell *matCellDef="let element"> {{element.creationDate | date:"d/M/yyyy"}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef> Status </th>
+    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="type">
+    <th mat-header-cell *matHeaderCellDef> Description </th>
+    <td mat-cell *matCellDef="let element"> {{getDescriptionForStatus(element.type)}} </td>
+  </ng-container>
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Action </th>
+    <td mat-cell *matCellDef="let element">
+      <button  *ngIf="isStatusUnchecked(element.status)" (click)="changeNotificationStatusToChecked(element)"color="primary" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>visibility</mat-icon>
+      </button>
+    <button  *ngIf="isStatusChecked(element.status)" (click)="changeNotificationStatusToArchived(element)" color="primary" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>archive</mat-icon>
+    </button></td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr
+    mat-row *matRowDef="let row; columns: displayedColumns;"
+  ></tr>
+
+</table>

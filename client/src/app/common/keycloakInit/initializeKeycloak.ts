@@ -16,5 +16,5 @@ export function initializeKeycloak(
           window.location.origin + '/assets/silent-check-sso.html'
       },
       loadUserProfileAtStartUp: true
-    });
+    }).catch(()=> null);
 }

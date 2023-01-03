@@ -18,7 +18,7 @@ CREATE TABLE `posts` (
                          `end_date` date DEFAULT NULL,
                          `status` varchar(45) DEFAULT NULL,
                          `animal_description` varchar(90) DEFAULT NULL,
-                         `creation_date` date DEFAULT NULL,
+                         `creation_date` TIMESTAMP DEFAULT NULL,
                          `address_id` int NOT NULL,
                          INDEX (address_id),
                          FOREIGN KEY (address_id) REFERENCES address(id) ON DELETE CASCADE,
@@ -35,6 +35,8 @@ ALTER TABLE `posts`
 ALTER TABLE `posts`
     ADD COLUMN `taker_user_name` varchar(45) DEFAULT NULL;
 
+ALTER TABLE `posts`
+    ADD COLUMN `phone_number` varchar(45) DEFAULT NULL;
 
 INSERT INTO `address` VALUES (1,'Wrocław','52-131','Drabika','75','78'),(2,'Test','test','test','test','test');
-INSERT INTO `posts` VALUES (1,'dupa','test','2012-12-20','2012-12-20','open','test','2014-01-20',1,NULL, 'user', NULL),(2,'Test','test','2022-12-01','2022-12-21','Created',NULL,'2022-12-28',2,NULL, 'user', NULL);
+INSERT INTO `posts` VALUES (1,'dupa','test','2012-12-20','2012-12-20','Open','test','2014-01-20',1,NULL, 'user', NULL, '123456789'),(2,'Test','test','2022-12-01','2022-12-21','Open',NULL,'2022-12-28',2,NULL, 'user', NULL, '23456789');

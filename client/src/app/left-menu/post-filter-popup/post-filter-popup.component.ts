@@ -5,6 +5,8 @@ import {FilterTo} from "../../model/filterTo";
 import {FilterSharingService} from "./filter-sharing.service";
 import {ToastrService} from "ngx-toastr";
 import {zip} from "rxjs";
+import {Router} from "@angular/router";
+import {POSTS_HOMEPAGE} from "../../app-routing-consts";
 
 @Component({
   selector: 'app-post-filter-popup',
@@ -14,12 +16,13 @@ import {zip} from "rxjs";
 export class PostFilterPopupComponent implements OnInit{
 
   form: FormGroup;
-  constructor(public dialogRef: MatDialogRef<PostFilterPopupComponent>, private readonly formBuilder: FormBuilder, private readonly filterService: FilterSharingService, private readonly growlService: ToastrService) {
+  constructor(public dialogRef: MatDialogRef<PostFilterPopupComponent>,
+              private readonly router: Router,
+              private readonly formBuilder: FormBuilder, private readonly filterService: FilterSharingService, private readonly growlService: ToastrService) {
     this.form = this.formBuilder.group({
       startDate: [''],
       endDate: [''],
-      city: [''],
-      zipCode: [''],
+      city: ['']
     })
   }
 
@@ -36,16 +39,18 @@ export class PostFilterPopupComponent implements OnInit{
   onAccept(): void {
     this.form.markAllAsTouched();
     if(this.form.valid) {
-      this.filterService.emitNewFilter(new FilterTo(this.form.value));
+      const filter: FilterTo = this.form.value
+      for( let property in filter) {
+        if(property === ''){
+          property = null;
+        }
+      }
+      this.router.navigateByUrl(POSTS_HOMEPAGE)
+      setTimeout(()=>this.filterService.emitNewFilter(new FilterTo(this.form.value)), 1000);
       this.dialogRef.close();
     }
     else {
       this.growlService.error("Validation error occured, fix marked fields to continue");
     }
-  }
-
-  checkIfZipCodeEnteredAndValid(): boolean{
-    const zipCode: AbstractControl = this.form.get('zipCode');
-    return zipCode.value.length > 0 && zipCode.valid;
   }
 }

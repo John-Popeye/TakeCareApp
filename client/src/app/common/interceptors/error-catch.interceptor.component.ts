@@ -11,12 +11,10 @@ export class ErrorCatchingInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.log(error)
         const err = new Error('An unexpected error on server side occured')
-        this.toastr.error('An unexpected error on server side occured')
+        this.toastr.error('An unexpected error on server side occured: ' + error.message);
         return throwError(()=> err)
       })
     );

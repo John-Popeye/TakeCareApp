@@ -1,4 +1,4 @@
-<ng-container *ngIf="enabledFilters.startDate || enabledFilters.endDate || enabledFilters.city || enabledFilters.zipCode">
+<ng-container *ngIf="enabledFilters.startDate || enabledFilters.endDate || enabledFilters.city">
   <h4>Enabled Filters:</h4>
 <mat-chip-listbox aria-label="Enabled Filters" >
   <mat-chip *ngIf="enabledFilters.startDate">
@@ -10,9 +10,6 @@
   <mat-chip  *ngIf="enabledFilters.city">
     City: {{enabledFilters.city}}
   </mat-chip>
-    <mat-chip  *ngIf="enabledFilters.zipCode">
-      Zip Code: {{enabledFilters.zipCode}}
-    </mat-chip>
 
 
     <button  (click)="removeFilters()" color="primary" class="filter-cancel" mat-mini-fab>
@@ -46,6 +43,9 @@
           <button (click)="callService(post.id)"mat-raised-button color="accent">Show More</button>
         </div>
       </div>
+      <mat-card-actions>
+        Created by: {{' ' + post.creatorUserName}}
+      </mat-card-actions>
       <mat-card-actions align="end">
         <mat-chip class="mx-2">
           Address: {{post.address.zipCode}} {{post.address.city}} {{post.address.street}}
@@ -61,4 +61,16 @@
     </mat-card>
     <br>
   </ng-container>
+</div>
+<div class="d-flex flex-row-reverse align-items-center" *ngIf="posts?.length > 0">
+  <button (click)="navigateToPage(pageNumber+1)" mat-mini-fab color="accent" aria-label="Example icon button with a bookmark icon">
+    <mat-icon>arrow_forward_ios</mat-icon>
+  </button>
+  <button class="mx-3" mat-raised-button color="primary">Page: {{pageNumber}}</button>
+  <button [disabled]="isFirstPage()" (click)="navigateToPage(pageNumber-1)" mat-mini-fab color="accent" aria-label="Example icon button with a bookmark icon">
+    <mat-icon>arrow_back_ios</mat-icon>
+  </button>
+
+
+
 </div>

@@ -7,7 +7,7 @@
     </mat-card-header>
     <mat-card-content *ngIf="isLoggedIn; else not_logged_cares">
     <ng-container *ngFor="let ad of userCares; let i = index">
-      <div><a href="">{{ad.startDate | date:'MMM d'}} - {{ad.endDate | date:'MMM d'}} {{ad.address.city}}</a></div>
+      <div><a [routerLink]="getPostDetailsUrl(ad.id)">{{ad.startDate | date:'MMM d'}} - {{ad.endDate | date:'MMM d'}} {{ad.address.city}}</a></div>
     </ng-container>
       <div class="float-end pt-3">
       <button (click)="navigateToAllPostsCreatedOverview()" mat-raised-button color="primary" class="small-button">All Cares</button>
@@ -30,10 +30,10 @@
       </mat-card-header>
     <mat-card-content *ngIf="isLoggedIn; else not_logged_orders">
       <ng-container *ngFor="let ad of userCreatedAds; let i = index">
-        <div><a href="">{{ad.startDate | date:'MMM d'}} - {{ad.endDate | date:'MMM d'}} {{ad.address.city}}</a></div>
+        <div><a [routerLink]="getPostDetailsUrl(ad.id)">{{ad.startDate | date:'MMM d'}} - {{ad.endDate | date:'MMM d'}} {{ad.address.city}}</a></div>
       </ng-container>
       <div class="float-end pt-3">
-        <button mat-raised-button color="primary" class="small-button">All Orders</button>
+        <button (click)="navigateToAllJobsAssignedToUser()" mat-raised-button color="primary" class="small-button">All Orders</button>
       </div>
     </mat-card-content>
     <ng-template #not_logged_orders>

@@ -6,8 +6,9 @@ export class AdvertisementEto {
   startDate: Date;
   endDate: Date;
   status: AdvertisementStatusEnum
-  issuerUserName: string;
-  careTakerUserName: string;
+  creatorUserName: string;
+  takerUserName: string;
+  phoneNumber: string;
   description: string;
   address: Address;
   title:string;

@@ -1,6 +1,27 @@
 <div class="pt-5">
   <ng-container>
     <mat-card>
+      <div class="row gx-0">
+        <div class="col-md-6 p-3">
+          <button mat-raised-button (click)="navigateToPostEdition()" [disabled]="!canEdit()" color="primary" >Edit</button>
+          <button class="mx-2" (click)="archivePost()" *ngIf="canPostBeArchived()" mat-raised-button color="accent" >Archive</button>
+
+        </div>
+        <div class="col-md-6 p-3">
+        </div>
+      </div>
+      <div class="row gx-0">
+        <div class="col-md-6 p-3">
+          <p><b>Created by:</b> {{post?.creatorUserName}}</p>
+          <p><b>Status:</b> {{post?.status}}</p>
+          <p><b>Assigned User</b>: {{post?.takerUserName}}</p>
+        </div>
+        <div class="col-md-6 p-3">
+          <p><b>Phone Number</b>: {{post?.phoneNumber}}</p>
+          <button (click)="assignUserToPost()" *ngIf="!isUserAssignedToPost()" [disabled]="!assignmentEnabled()" mat-raised-button color="accent" >Assign Me!</button>
+          <button class="px-2" (click)="cancelAssignmentToPost()" *ngIf="isUserAssignedToPost()" mat-raised-button color="accent" >Cancel</button>
+        </div>
+      </div>
       <mat-card-header>
         <mat-card-title>{{post?.title}}</mat-card-title>
         <mat-card-subtitle>{{post?.animalDescription}}</mat-card-subtitle>
@@ -20,17 +41,40 @@
             {{post?.description}}
           </p>
         </div>
+        <div class="col-md-3 px-3">
+          <div class="row gx-0">
+            <div class="col-md-12 text-center mt-3">
+              <mat-chip class="mx-2 ">
+                Zip Code: {{post?.address?.zipCode}}
+              </mat-chip>
+            </div>
+            <div class="col-md-12 text-center mt-3">
+              <mat-chip class="mx-2 ">
+                City: {{post?.address?.city}}
+              </mat-chip>
+            </div>
+            <div class="col-md-12 text-center mt-3">
+              <mat-chip class="mx-2 ">
+                Street: {{post?.address?.street}}
+              </mat-chip>
+            </div>
+            <div class="col-md-12 text-center mt-3">
+              <mat-chip class="mx-2 date-chip">
+                From: {{post?.startDate | date:"d/M/yyyy"}}
+              </mat-chip>
+            </div>
+            <div class="col-md-12 text-center mt-3">
+              <mat-chip class="mx-2">
+                To: {{post?.endDate | date:"d/M/yyyy"}}
+              </mat-chip>
+            </div>
+
+
+
+          </div>
+        </div>
       </div>
       <mat-card-actions align="end">
-        <mat-chip class="mx-2">
-          Address: {{post?.address?.zipCode}} {{post?.address?.city}} {{post?.address?.street}}
-        </mat-chip>
-        <mat-chip class="mx-2 date-chip">
-          From: {{post?.startDate | date:"d/M/yyyy"}}
-        </mat-chip>
-        <mat-chip class="mx-2">
-          To: {{post?.endDate | date:"d/M/yyyy"}}
-        </mat-chip>
         <span class="mx-2">Created: {{post?.creationDate | date:"d/M/yyyy"}}</span>
       </mat-card-actions>
     </mat-card>

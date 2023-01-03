@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from "@angular/router";
 import {AdvertisementEto} from "../../model/advertisementEto";
 import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {RestService} from "../../common/services/restService/rest.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostDetailsResolverService implements Resolve<AdvertisementEto>{
 
-  constructor(private readonly httpClient: HttpClient) { }
+  constructor(private readonly restService: RestService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<AdvertisementEto> {
-    return <Observable<AdvertisementEto>>this.httpClient.get(`/post-service/v1/posts/post/${route.paramMap.get('id')}`);
+    return this.restService.getPostDetails(+route.paramMap.get('id'));
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoadingService } from './common/services/loading.service';
+import { LoadingService } from './common/services/loadingService/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +7,6 @@ import { LoadingService } from './common/services/loading.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'client';
-  showFiller = false;
-
-
   constructor(public loadingService: LoadingService) {
   }
 }

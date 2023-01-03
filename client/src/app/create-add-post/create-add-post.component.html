@@ -7,24 +7,28 @@
       <mat-card-title class="example-full-width">
         <mat-form-field class="example-full-width">
           <mat-label>Title</mat-label>
-          <input matInput formControlName="title" placeholder="Enter Post Title Here" value="">
+          <input matInput formControlName="title" placeholder="Enter Post Title Here" required>
+          <mat-error *ngIf="formGroup?.get('title').hasError('required')">{{getRequiredErrorMessage()}}</mat-error>
+          <mat-error *ngIf="formGroup?.get('title').hasError('maxlength')">{{getMaxLengthErrorMessage()}}</mat-error>
         </mat-form-field>
 
       </mat-card-title>
       <mat-card-subtitle>
         <mat-form-field class="half-width">
           <mat-label>Animal(s) race and names</mat-label>
-          <input matInput formControlName="animalsDescription" placeholder="Enter Post Title Here" value="">
+          <input matInput formControlName="animalDescription" placeholder="Enter Post Title Here" required>
+          <mat-error *ngIf="formGroup?.get('animalDescription').invalid">{{getRequiredErrorMessage()}}</mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <mat-label>Job Description</mat-label>
-          <textarea matInput formControlName="description" rows="9" placeholder=""></textarea>
+          <textarea matInput formControlName="description" rows="9" ></textarea>
         </mat-form-field>
         <div class="row gx-0">
           <div class="col-md-3">
             <mat-form-field appearance="fill" class="full-width">
               <mat-label>Select first day (including)</mat-label>
-              <input formControlName="startDate" [matDatepicker]="startpicker" matInput>
+              <input [min]="minimumValidDate" formControlName="startDate" [matDatepicker]="startpicker" matInput required>
+              <mat-error  *ngIf="formGroup?.get('startDate').invalid">{{getRequiredErrorMessage()}}</mat-error>
               <mat-hint>MM/DD/YYYY</mat-hint>
               <mat-datepicker-toggle [for]="startpicker" matIconSuffix></mat-datepicker-toggle>
               <mat-datepicker #startpicker></mat-datepicker>
@@ -33,10 +37,18 @@
           <div class="col-md-3 offset-md-1">
             <mat-form-field appearance="fill" class="full-width">
               <mat-label>Select last day (including)</mat-label>
-              <input formControlName="endDate" [matDatepicker]="endpicker" matInput>
+              <input [min]="this.formGroup.get('startDate').value" formControlName="endDate" [matDatepicker]="endpicker" matInput required [disabled]="disableEndDate">
+              <mat-error *ngIf="formGroup?.get('endDate').invalid && !disableEndDate">{{getRequiredErrorMessage()}}</mat-error>
               <mat-hint>MM/DD/YYYY</mat-hint>
               <mat-datepicker-toggle [for]="endpicker" matIconSuffix></mat-datepicker-toggle>
               <mat-datepicker #endpicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3 offset-md-1">
+          <mat-form-field class="example-full-width">
+              <mat-label>Phone number</mat-label>
+              <input matInput formControlName="phoneNumber" required>
+            <mat-error *ngIf="formGroup?.get('phoneNumber').invalid">{{getRequiredErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -45,14 +57,16 @@
           <div class="col-md-3">
             <mat-form-field  class="full-width">
               <mat-label>City</mat-label>
-              <input matInput formControlName="city" placeholder="Enter Post Title Here" value="">
+              <input matInput formControlName="city" placeholder="Enter Post Title Here" required>
+              <mat-error *ngIf="formGroup?.get('address.city').invalid">{{getRequiredErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
 
           <div class="col-md-3  offset-md-1">
             <mat-form-field  class="full-width">
               <mat-label>Zip Code</mat-label>
-              <input matInput formControlName="zipCode" placeholder="Enter Post Title Here" value="">
+              <input matInput formControlName="zipCode" placeholder="Enter Post Title Here" required>
+              <mat-error *ngIf="formGroup?.get('address.zipCode').invalid">{{getRequiredErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -60,24 +74,25 @@
           <div class="col-md-3">
             <mat-form-field class="full-width">
               <mat-label>Street</mat-label>
-              <input matInput formControlName="street" placeholder="Enter Post Title Here" value="">
+              <input matInput formControlName="street" placeholder="Enter Post Title Here" required>
+              <mat-error *ngIf="formGroup?.get('address.street').invalid">{{getRequiredErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
           <div class="col-md-3  offset-md-1">
             <mat-form-field class="full-width">
               <mat-label>Home Number</mat-label>
-              <input matInput formControlName="homeNumber" placeholder="Enter Post Title Here" value="">
+              <input matInput formControlName="homeNumber" placeholder="Enter Post Title Here" required>
+              <mat-error *ngIf="formGroup?.get('address.homeNumber').invalid">{{getRequiredErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
           <div class="col-md-3  offset-md-1">
             <mat-form-field class="full-width">
               <mat-label>Flat Number</mat-label>
-              <input matInput formControlName="flatNumber" placeholder="Enter Post Title Here" value="">
+              <input matInput formControlName="flatNumber" placeholder="Enter Post Title Here">
             </mat-form-field>
           </div>
         </div>
         </ng-container>
-        <h4>Upload photos</h4>
         <div class="row gx-0">
             <div class="col-md-12">
               <h1>Upload Image</h1>

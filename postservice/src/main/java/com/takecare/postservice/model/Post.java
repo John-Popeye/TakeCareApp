@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @NoArgsConstructor
@@ -21,8 +22,10 @@ public class Post {
     private String description;
     private Date startDate;
     private Date endDate;
-    private Date creationDate;
-    private String status;
+    private Timestamp creationDate;
+    @Enumerated(EnumType.STRING)
+    private PostStatusEnum status;
+    private String phoneNumber;
     private String animalDescription;
     private String creatorUserName;
     private String takerUserName;

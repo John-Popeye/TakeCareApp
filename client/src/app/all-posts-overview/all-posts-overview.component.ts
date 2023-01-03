@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {AdvertisementEto} from "../model/advertisementEto";
 import {AdvertisementStatusEnum} from "../model/enums/advertisementStatusEnum";
 import {FormControl} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
+import {ALL_USER_POSTS, POST_DETAILS} from "../app-routing-consts";
 
 @Component({
   selector: 'app-all-posts-overview',
@@ -12,34 +13,41 @@ import {FormControl} from "@angular/forms";
 export class AllPostsOverviewComponent implements OnInit {
 
   filterFormControl: FormControl = new FormControl();
-  selectedFilter: AdvertisementStatusEnum;
   allPostsData: AdvertisementEto[] = [];
   statuses: string[] = [AdvertisementStatusEnum.OPEN.toString(), AdvertisementStatusEnum.ASSIGNED.toString(), AdvertisementStatusEnum.CLOSED.toString()];
   tableData: AdvertisementEto[] = [];
   displayedColumns: string[] = ['startDate', 'title', 'city', 'status'];
 
-  constructor(private readonly httpClient: HttpClient) {
+  constructor(private readonly router: Router,
+              private readonly activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(){
-
     this.filterFormControl.valueChanges.subscribe(val => {
       if(val){
         this.filterTableDataByStatus(val);
       }
     })
-    this.httpClient.get('/post-service/v1/posts/all-user-created').subscribe((posts: AdvertisementEto[]) => {
-      this.allPostsData = posts;
+    this.activatedRoute.data.subscribe((data: any) => {
+      this.allPostsData = data.posts;
       this.tableData = this.allPostsData;
     })
   }
 
   navigateToAdDetails(row: AdvertisementEto){
-    console.log(row)
+    this.router.navigateByUrl(POST_DETAILS(row.id))
   }
 
-  private filterTableDataByStatus(status: AdvertisementStatusEnum){
+  public filterTableDataByStatus(status: AdvertisementStatusEnum){
+    if(status === null){
+      this.tableData = this.allPostsData;
+      return;
+    }
     this.tableData = this.allPostsData.filter(ad => ad.status === status);
+  }
+
+  public isAllPostsCreatedByUser(){
+    return this.router.url === ALL_USER_POSTS
   }
 
 

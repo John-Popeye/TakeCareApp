@@ -6,12 +6,21 @@ import {CreateAddPostComponent} from "./create-add-post/create-add-post.componen
 import {AllPostsOverviewComponent} from "./all-posts-overview/all-posts-overview.component";
 import {PostDetailsComponent} from "./post-details/post-details.component";
 import {PostDetailsResolverService} from "./post-details/services/post-details-resolver.service";
+import {NotificationsComponent} from "./notifications/notifications.component";
+import {AllPostsResolverService} from "./all-posts-overview/services/all-posts-resolver.service";
+import {AllUserJobsResolverService} from "./all-posts-overview/services/all-user-jobs-resolver.service";
 
-const routes: Routes = [
+export const routes: Routes = [
   {
-    path: 'posts',
+    path: 'posts/:page',
     component: PostsHomepageComponent ,
     canActivate: [],
+    runGuardsAndResolvers: 'always',
+  },
+  {
+    path: 'notifications',
+    component: NotificationsComponent ,
+    canActivate: [AuthGuard],
   },
   {
     path: 'post/:id',
@@ -22,15 +31,34 @@ const routes: Routes = [
     }
   },
   {
-    path: 'overview',
+    path: 'post/:id/edit',
+    component:  CreateAddPostComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      post: PostDetailsResolverService
+    }
+  },
+  {
+    path: 'overview/myposts',
     component: AllPostsOverviewComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    resolve: {
+      posts: AllPostsResolverService
+    }
+  },
+  {
+    path: 'overview/myjobs',
+    component: AllPostsOverviewComponent,
+    canActivate: [AuthGuard],
+    resolve: {
+      posts: AllUserJobsResolverService
+    }
   },
   {
     path: 'create',
     component: CreateAddPostComponent ,
     canActivate: [AuthGuard]},
-  { path: '**', redirectTo: 'posts' }
+  { path: '**', redirectTo: 'posts/1' }
 ];
 
 @NgModule({

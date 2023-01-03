@@ -1,8 +1,12 @@
-<h1>Ads Created By You </h1>
+<h1 *ngIf="isAllPostsCreatedByUser(); else allJobsAssignedToUser">Ads Created By You </h1>
+<ng-template #allJobsAssignedToUser>
+  <h1>Jobs you are assigned to</h1>
+</ng-template>
 <div>
   <mat-form-field appearance="fill">
     <mat-label>Filter by status</mat-label>
     <mat-select [formControl]="filterFormControl">
+      <mat-option (click)="filterTableDataByStatus(null)">None</mat-option>
       <mat-option *ngFor="let status of statuses" [value]="status">
         {{status}}
       </mat-option>

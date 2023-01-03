@@ -5,7 +5,7 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
-import { LoadingService } from '../services/loading.service';
+import { LoadingService } from '../services/loadingService/loading.service';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
@@ -14,6 +14,10 @@ export class LoadingInterceptor implements HttpInterceptor {
   constructor(private loadingService: LoadingService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
+    // do not show loading spinner for notifications
+    if(request.url.includes('notifications/get/uncheked')){
+      return next.handle(request)
+    }
     this.totalRequests++;
     this.loadingService.setLoading(true);
 

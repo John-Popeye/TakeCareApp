@@ -4,9 +4,12 @@
       <mat-icon>menu</mat-icon>
     </button>
     <span (click)="navigateToHomePage()" class="title-link">Take Care</span>
+
     <span class="example-spacer"></span>
     <button mat-raised-button (click)="navigateToCreatePost()" color="accent">Create Post</button>
-
+    <div class="px-2">
+    <button  mat-mini-fab [matBadge]="notifications.length" (click)="navigateToNotifications()" matBadgeColor="accent" color="accent"><mat-icon>notifications</mat-icon></button>
+    </div>
     <div *ngIf="isLoggedIn; else login_please" class="px-2"><span>Logged as: {{userName}}</span></div>
     <ng-template #login_please>
       <div class="px-2">Login Please -></div>
