@@ -1,23 +1,34 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AllPostsOverviewComponent } from './all-posts-overview.component';
+import {ActivatedRoute, Router} from "@angular/router";
+import {of} from "rxjs";
+import {AdvertisementEto} from "../model/advertisementEto";
 
 describe('AllPostsOverviewComponent', () => {
   let component: AllPostsOverviewComponent;
-  let fixture: ComponentFixture<AllPostsOverviewComponent>;
+  let router: Router;
+  let activatedRoute : ActivatedRoute;
+  let mockAdvertisementEto = new AdvertisementEto();
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ AllPostsOverviewComponent ]
-    })
-    .compileComponents();
+    mockAdvertisementEto.id = 12;
+    router = jasmine.createSpy('Router') as any;
+    router.navigateByUrl = jasmine.createSpy();
+    activatedRoute = jasmine.createSpy('ActivatedRoute') as any;
+    activatedRoute.data = of([]);
+   component = new AllPostsOverviewComponent(router, activatedRoute);
 
-    fixture = TestBed.createComponent(AllPostsOverviewComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component.ngOnInit();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+  it('should navigate to post details', ()=> {
+    component.navigateToAdDetails(mockAdvertisementEto);
+
+    expect(router.navigateByUrl).toHaveBeenCalledOnceWith('/post/12')
+  })
 });

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import {KeycloakService} from "keycloak-angular";
-import {HttpClient} from "@angular/common/http";
 import { timer} from "rxjs";
 import {AdNotification} from "../model/adNotification";
 import _ from "lodash";
@@ -46,7 +45,7 @@ export class TopToolbarComponent implements OnInit{
     this.authService.getKeycloakInstance().accountManagement();
   }
 
-  getSubscribeToGetNotifications(){
+  private getSubscribeToGetNotifications(){
     if(this.isLoggedIn) {
       timer(0, 7000).subscribe(() =>
         this.restService.getUncheckedNotifications().subscribe((val: AdNotification[]) => {

@@ -16,7 +16,7 @@ import { LeftMenuComponent } from './left-menu/left-menu.component';
 import {LoadingInterceptor} from "./common/interceptors/loading-interceptor.component";
 import {LoadingService} from "./common/services/loadingService/loading.service";
 import { PostsHomepageComponent } from './posts-homepage/posts-homepage.component';
-import { CreateAddPostComponent } from './create-add-post/create-add-post.component';
+import { CreateAddPostComponent } from './create-edit-post/create-add-post.component';
 import {MatNativeDateModule} from "@angular/material/core";
 import {NgxFileDropModule} from "ngx-file-drop";
 import { PostFilterPopupComponent } from './left-menu/post-filter-popup/post-filter-popup.component';

@@ -4,9 +4,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {PostFilterPopupComponent} from "./post-filter-popup/post-filter-popup.component";
 import {Router} from "@angular/router";
 import {KeycloakService} from "keycloak-angular";
-import {HttpClient} from "@angular/common/http";
 import {UpdateService} from "../common/services/updateService/update.service";
-import {of, switchMap} from "rxjs";
+import {switchMap} from "rxjs";
 import {RestService} from "../common/services/restService/rest.service";
 import {ALL_USER_ASSIGNMENTS, ALL_USER_POSTS, POST_DETAILS, POSTS_HOMEPAGE} from "../app-routing-consts";
 

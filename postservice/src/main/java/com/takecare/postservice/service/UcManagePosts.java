@@ -28,6 +28,9 @@ public class UcManagePosts {
     @Inject
     PostValidationService validationService;
 
+    @Inject
+    RestTemplate restTemplate;
+
 
     public List<Post> findLatestCreatedPostsForUser(String username){
         return repository.find5LatestJobsUserCreated(username, Arrays.asList(PostStatusEnum.open, PostStatusEnum.assigned), PageRequest.of(0,5));
@@ -141,8 +144,8 @@ public class UcManagePosts {
         return repository.save(post);
     }
 
-    private void addNotification(String token, long postId, NotificationTypeEnum type, String username){
-        RestTemplate restTemplate = new RestTemplate();
+    public void addNotification(String token, long postId, NotificationTypeEnum type, String username){
+
         String notificationServer = "http://localhost:8091/v1/notifications/add/" + username;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

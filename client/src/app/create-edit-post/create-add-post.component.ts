@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {HttpClient} from "@angular/common/http";
 import {AdvertisementEto} from "../model/advertisementEto";
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -69,13 +68,16 @@ export class CreateAddPostComponent implements OnInit{
 
 
   public createPost(): void {
-    const to = new AdvertisementEto(this.formGroup.value);
-    to.base64image = this.url;
-    this.restService.savePost(to).subscribe((val: AdvertisementEto) => {
-      this.toastrService.info("Save succesfull");
-      this.updateService.emitUpdate();
-      setTimeout(()=> this.router.navigateByUrl(POST_DETAILS(val.id)), 1000)
-    })
+    this.formGroup.markAllAsTouched();
+    if(this.formGroup.valid) {
+      const to = new AdvertisementEto(this.formGroup.value);
+      to.base64image = this.url;
+      this.restService.savePost(to).subscribe((val: AdvertisementEto) => {
+        this.toastrService.info("Save succesfull");
+        this.updateService.emitUpdate();
+        setTimeout(() => this.router.navigateByUrl(POST_DETAILS(val.id)), 1000)
+      })
+    }
   }
 
 

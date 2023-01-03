@@ -50,7 +50,6 @@ export class PostsHomepageComponent implements OnInit, OnDestroy{
       })
     )
       .subscribe((val: any[]) =>{
-        console.log(this.pageNumber);
         val.map(value => new AdvertisementEto(value));
         val.map((x: AdvertisementEto) => {
           if(x.base64image){
@@ -80,8 +79,6 @@ export class PostsHomepageComponent implements OnInit, OnDestroy{
 
   navigateToPage(pageNumber: number){
     this.router.navigateByUrl(POSTS_HOMEPAGE_NUMBER(pageNumber))
-
-
   }
 
   ngOnDestroy() {

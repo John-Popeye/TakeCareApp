@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AdvertisementEto} from "../../../model/advertisementEto";
-import {Address} from "../../../model/address";
 import {map, Observable, of} from "rxjs";
 import {AdNotification} from "../../../model/adNotification";
-import {NotificationStatusEnum} from "../../../model/enums/notificationStatusEnum";
 import {FilterTo} from "../../../model/filterTo";
 
 @Injectable({
@@ -66,7 +64,7 @@ export class RestService {
   }
 
   public postAssignementToPost(postId: number): Observable<AdvertisementEto>{
-    return <Observable<AdvertisementEto>>this.httpClient.post(`${this.POST_SERVICE_ENDPOINT}/post/${postId}//assign`, {})
+    return <Observable<AdvertisementEto>>this.httpClient.post(`${this.POST_SERVICE_ENDPOINT}/post/${postId}/assign`, {})
   }
 
   public getPostsForPageWithFilters(pageNumber: number, filters: FilterTo): Observable<AdvertisementEto[]>{

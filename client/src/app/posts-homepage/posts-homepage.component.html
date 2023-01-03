@@ -1,14 +1,14 @@
-<ng-container *ngIf="enabledFilters.startDate || enabledFilters.endDate || enabledFilters.city">
+<ng-container *ngIf="enabledFilters?.startDate || enabledFilters?.endDate || enabledFilters?.city">
   <h4>Enabled Filters:</h4>
 <mat-chip-listbox aria-label="Enabled Filters" >
-  <mat-chip *ngIf="enabledFilters.startDate">
-    From: {{enabledFilters.startDate | date:"d/M/yyyy"}}
+  <mat-chip *ngIf="enabledFilters?.startDate">
+    From: {{enabledFilters?.startDate | date:"d/M/yyyy"}}
   </mat-chip>
-  <mat-chip  *ngIf="enabledFilters.endDate">
-    To: {{enabledFilters.endDate | date:"d/M/yyyy"}}
+  <mat-chip  *ngIf="enabledFilters?.endDate">
+    To: {{enabledFilters?.endDate | date:"d/M/yyyy"}}
   </mat-chip>
-  <mat-chip  *ngIf="enabledFilters.city">
-    City: {{enabledFilters.city}}
+  <mat-chip  *ngIf="enabledFilters?.city">
+    City: {{enabledFilters?.city}}
   </mat-chip>
 
 

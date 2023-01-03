@@ -7,6 +7,9 @@ import { LoadingService } from './common/services/loadingService/loading.service
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  title = 'client';
+  showFiller = false;
+
   constructor(public loadingService: LoadingService) {
   }
 }
