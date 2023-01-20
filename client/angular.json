@@ -68,6 +68,7 @@
           },
           "configurations": {
             "production": {
+              "proxyConfig": "src/proxy.conf.json",
               "browserTarget": "client:build:production"
             },
             "development": {
@@ -107,6 +108,9 @@
         }
         }
       }
+    },
+    "cli": {
+      "analytics": false
     }
   }
-}
+

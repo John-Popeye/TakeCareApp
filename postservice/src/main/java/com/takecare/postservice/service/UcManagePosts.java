@@ -143,7 +143,7 @@ public class UcManagePosts {
 
     public void addNotification(String token, long postId, NotificationTypeEnum type, String username){
         RestTemplate restTemplate = new RestTemplate();
-        String notificationServer = "http://localhost:8091/v1/notifications/add/" + username;
+        String notificationServer = "http://notification-service:8091/v1/notifications/add/" + username;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         String fullHeaderValue = "Bearer " + token;

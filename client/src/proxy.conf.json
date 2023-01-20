@@ -1,12 +1,12 @@
 {
   "/post-service": {
-    "target": "http://localhost:8092",
+    "target": "http://gateway-server:8092",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
   },
   "/notification-service": {
-    "target": "http://localhost:8092",
+    "target": "http://gateway-server:8092",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"

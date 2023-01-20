@@ -1,6 +1,40 @@
 version: '3.7'
 
 services:
+  config-server:
+    image: configserver
+    ports:
+      - 8071:8071
+    restart: on-failure
+
+  eureka-server:
+    restart: on-failure
+    image: eurekaserver
+    ports:
+      - 8070:8070
+  notification-server:
+      restart: on-failure
+      image: notificationservice
+      ports:
+        - 8091:8091
+  post-server:
+      restart: on-failure
+      image: postservice
+      ports:
+        - 8090:8090
+
+
+  gateway-server:
+    restart: on-failure
+    image: gateway-server
+    ports:
+      - 8092:8092
+
+  frontend:
+    image: client
+    ports:
+      - 4200:80
+
   mongdodb:
     image: mongo:latest
     ports:
